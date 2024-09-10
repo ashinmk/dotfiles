@@ -1,0 +1,219 @@
+{
+  "title": "Change control key",
+  "rules": [
+      {
+          "description": "double left shift to cap_lock",
+          "manipulators": [
+              {
+                  "type": "basic",
+                  "from": {
+                      "key_code": "left_shift",
+                      "modifiers": {
+                          "optional": [
+                              "any"
+                          ]
+                      }
+                  },
+                  "to": [
+                      {
+                          "key_code": "caps_lock"
+                      }
+                  ],
+                  "conditions": [
+                      {
+                          "type": "variable_if",
+                          "name": "left_shift pressed",
+                          "value": 1
+                      }
+                  ]
+              },
+              {
+                  "type": "basic",
+                  "from": {
+                      "key_code": "left_shift",
+                      "modifiers": {
+                          "optional": [
+                              "any"
+                          ]
+                      }
+                  },
+                  "to": [
+                      {
+                          "set_variable": {
+                              "name": "left_shift pressed",
+                              "value": 1
+                          }
+                      },
+                      {
+                          "key_code": "left_shift"
+                      }
+                  ],
+                  "to_delayed_action": {
+                      "to_if_invoked": [
+                          {
+                              "set_variable": {
+                                  "name": "left_shift pressed",
+                                  "value": 0
+                              }
+                          }
+                      ],
+                      "to_if_canceled": [
+                          {
+                              "set_variable": {
+                                  "name": "left_shift pressed",
+                                  "value": 0
+                              }
+                          }
+                      ]
+                  }
+              }
+          ]
+      },
+      {
+          "description": "double right shift to cap_lock",
+          "manipulators": [
+              {
+                  "type": "basic",
+                  "from": {
+                      "key_code": "right_shift",
+                      "modifiers": {
+                          "optional": [
+                              "any"
+                          ]
+                      }
+                  },
+                  "to": [
+                      {
+                          "key_code": "caps_lock"
+                      }
+                  ],
+                  "conditions": [
+                      {
+                          "type": "variable_if",
+                          "name": "right_shift pressed",
+                          "value": 1
+                      }
+                  ]
+              },
+              {
+                  "type": "basic",
+                  "from": {
+                      "key_code": "right_shift",
+                      "modifiers": {
+                          "optional": [
+                              "any"
+                          ]
+                      }
+                  },
+                  "to": [
+                      {
+                          "set_variable": {
+                              "name": "right_shift pressed",
+                              "value": 1
+                          }
+                      },
+                      {
+                          "key_code": "right_shift"
+                      }
+                  ],
+                  "to_delayed_action": {
+                      "to_if_invoked": [
+                          {
+                              "set_variable": {
+                                  "name": "right_shift pressed",
+                                  "value": 0
+                              }
+                          }
+                      ],
+                      "to_if_canceled": [
+                          {
+                              "set_variable": {
+                                  "name": "right_shift pressed",
+                                  "value": 0
+                              }
+                          }
+                      ]
+                  }
+              }
+          ]
+      },
+    {
+      "description": "Post escape if left_control is pressed alone.",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_control",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_control"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "escape"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Post caps_lock if left_control is pressed alone.",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_control",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_control"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "caps_lock"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Post return_or_enter if right_control is pressed alone.",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_control",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_control"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "return_or_enter"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
