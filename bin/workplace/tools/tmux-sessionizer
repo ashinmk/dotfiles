@@ -1,0 +1,23 @@
+#!/bin/bash
+
+session=`echo $FD_OPTIONS | xargs fd . ~ -d4 -td | fzf`
+#session=`fd . ~ -d4 -td $FD_OPTIONS | fzf`
+if ! [ "$?" -eq 0 ] ; then
+        exit 1;
+fi
+session_name=`basename "$session" | tr . _`
+
+session_exists() {
+    tmux list-sessions | sed -E 's/:.*$//' | grep -q "^$session_name$"
+}
+
+if ! session_exists; then
+    tmux new-session -d -s "$session_name" -c "$session"
+fi
+
+tmux switch-client -t "$session_name"
+      #if ! "$?" ; then
+if ! [ "$?" -eq 0 ] ; then
+    tmux attach -t "$session_name";
+fi
+

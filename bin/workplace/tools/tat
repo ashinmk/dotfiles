@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [[ "$#" -eq 0 ]];then
+    path=`pwd`
+else
+    path=$1
+fi
+
+if test -f "$path"; then
+    path=$(dirname "$path")
+fi
+
+path=$(cd "$path"; pwd)
+session=`basename $path` 
+
+if ! tmux has-session -t "$session" &>/dev/null; then
+    tmux new-session -s "$session" -d -c "$path"
+fi
+tmux switch-client -t $session 

@@ -1,0 +1,38 @@
+#tmux ls &>/dev/null;
+#if [[ $? -eq 0 ]]; then
+#    session=$(tmux ls|fzf)
+#    session_name=${session%%:*}
+#    echo tmux switch-client -t "$session_name";
+#    tmux switch-client -t "$session_name"
+#else 
+#    tmux new-session -s "ashinmk"
+#fi
+
+#tmux ls &>/dev/null;
+#if [[ $? -eq 0 ]]; then
+#    if [[ "$TMUX" == '' ]]; then
+#        tmux new-session 'session=$(tmux ls|fzf); session_name=${session%%:*}; tmux switch-client -t "$session_name";'
+#    else
+#        tmux list-sessions | sed -E 's/:.*$//' | grep -v "^$(tmux display-message -p '#S')\$" | fzf --reverse | xargs tmux switch-client -t
+#        #tmux neww 'session=$(tmux ls|fzf); session_name=${session%%:*}; tmux switch-client -t "$session_name"'
+#    fi
+#else
+#    tmux new-session -s "ashinmk"
+#fi
+
+tmux ls &>/dev/null;
+if [[ $? -eq 0 ]]; then
+    if [[ "$TMUX" == '' ]]; then 
+        tmux has-session -t "ashinmk" 2> /dev/null;
+        if [ $? != 0 ]; then
+            tmux new-session -s "ashinmk";
+        fi
+        tmux attach-session -t "ashinmk"
+    else
+        tmux neww 'session=$(tmux ls|fzf); session_name=${session%%:*}; tmux switch-client -t "$session_name"'
+    fi
+else 
+    tmux new-session -s "ashinmk"
+fi
+
+
